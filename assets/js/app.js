@@ -3,10 +3,12 @@ const monedas = document.getElementById("moneda")
 const pesos = document.getElementById("monto")
 const resultado = document.getElementById("result")
 const graph = document.getElementById("grafico");
+const spinner = document.getElementById("spinner")
 let renderGraph;
 
 const getData = async (monedas) => {
     try {
+            
             const response = await fetch(`https://mindicador.cl/api/${monedas}`);
             const arrayMonedas = await response.json();
             arrayMonedas.serie.forEach((moneda, index) => {
@@ -21,15 +23,17 @@ const getData = async (monedas) => {
 
 const chartRender = async (monedas) => {
     try {
+        if(renderGraph) {
+            renderGraph.destroy();
+        }    
+        spinner.classList.remove("d-none")
         const response = await fetch(`https://mindicador.cl/api/${monedas}`);
-    const arrayMonedas = await response.json();
-    const arrayNuevo = arrayMonedas.serie.slice(0,10.).reverse();
-    const fechas = arrayNuevo.map((item) => item.fecha.split("T")[0].split("-").reverse().join("-"))
-    const valores = arrayNuevo.map((item) => item.valor)
+        const arrayMonedas = await response.json();
+        const arrayNuevo = arrayMonedas.serie.slice(0,10.).reverse();
+        const fechas = arrayNuevo.map((item) => item.fecha.split("T")[0].split("-").reverse().join("-"))
+        const valores = arrayNuevo.map((item) => item.valor)
 
-    if(renderGraph) {
-        renderGraph.destroy();
-    }
+    
 
     renderGraph = new Chart(graph, {
         type: 'line',
@@ -49,8 +53,9 @@ const chartRender = async (monedas) => {
           }
         }
       });
-        
-    } catch (error) {
+        spinner.classList.add("d-none")
+        } 
+    catch (error) {
         alert("No se puede mostrar la informacion del grafico")
         
     }
