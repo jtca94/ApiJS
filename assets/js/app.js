@@ -3,12 +3,11 @@ const monedas = document.getElementById("moneda")
 const pesos = document.getElementById("monto")
 const resultado = document.getElementById("result")
 const graph = document.getElementById("grafico");
-const dolar = "https://mindicador.cl/api/dolar"
-const euro = "https://mindicador.cl/api/euro"
 let renderGraph;
-const getDataDollar = async () => {
+
+const getData = async (monedas) => {
     try {
-            const response = await fetch(dolar);
+            const response = await fetch(`https://mindicador.cl/api/${monedas}`);
             const arrayMonedas = await response.json();
             arrayMonedas.serie.forEach((moneda, index) => {
                 if(index == 0){
@@ -16,27 +15,13 @@ const getDataDollar = async () => {
                 }    
             });     
     } catch (error) {
-        console.log(error)     
-    }
-}
-
-
-const getDataEuro = async () => {
-    try {
-            const response = await fetch(euro);
-            const arrayMonedas = await response.json();
-            arrayMonedas.serie.forEach((moneda, index) => {
-                if(index == 0){
-                    resultado.innerHTML = `<p>Resultado: <b>${Intl.NumberFormat('de-DE').format(pesos.value/moneda.valor)}`
-                }    
-            });   
-    } catch (error) {
-        console.log(error)     
+        alert("No se puede acceder a la información solicitada")    
     }
 }
 
 const chartRender = async (monedas) => {
-    const response = await fetch(`https://mindicador.cl/api/${monedas}`);
+    try {
+        const response = await fetch(`https://mindicador.cl/api/${monedas}`);
     const arrayMonedas = await response.json();
     const arrayNuevo = arrayMonedas.serie.slice(0,10.).reverse();
     const fechas = arrayNuevo.map((item) => item.fecha.split("T")[0].split("-").reverse().join("-"))
@@ -45,7 +30,6 @@ const chartRender = async (monedas) => {
     if(renderGraph) {
         renderGraph.destroy();
     }
-
 
     renderGraph = new Chart(graph, {
         type: 'line',
@@ -65,6 +49,11 @@ const chartRender = async (monedas) => {
           }
         }
       });
+        
+    } catch (error) {
+        alert("No se puede mostrar la informacion del grafico")
+        
+    }
 }
 
 
@@ -78,12 +67,12 @@ btnCalcular.addEventListener("submit", (e) => {
         return
     }
     if(inp == "dolar"){
-        getDataDollar()
+        getData(monedas.value)
         chartRender(monedas.value)
         return
     }
     if(inp == "euro"){
-        getDataEuro()
+        getData(monedas.value)
         chartRender(monedas.value)
         return
     }
