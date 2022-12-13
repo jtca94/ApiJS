@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <title>Api | JS</title>
+</head>
+<body>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+      <div class="container px-4 px-lg-5">
+          <a class="navbar-brand" href="#!">Api | JS </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+  <!-- Page Content-->
+  <main class="container-fluid mt-3 text-center">
+    <h1>Conversor de monedas Nacional</h1><hr>
+    <div class="d-flex flex-column text-center border align-items-center ">
+        <form action="submit" id="submiter">
+            <h2>Pesos CLP</h2>
+            <input type="number" id="monto">
+            <p class="pt-3">Moneda a convertir:</p>
+            <select class="" name="" id="moneda">
+                <option value="" hidden>Selecciona moneda</option>
+                <option value="dolar">Dolar</option>
+                <option value="euro">Euro</option>
+            </select>
+            <button type="submit" class="my-3 btn btn-primary ">Convertir</button>
+            <span id="result" class="mb-3"></span>
+        </form>
+    </div>
+
+  </main>
+  <section class="d-flex justify-content-center mx-3">
+    <canvas id="grafico"></canvas>
+  </section>
+  <!-- Bootstrap core JS y chart JS-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
