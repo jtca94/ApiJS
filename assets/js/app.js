@@ -66,18 +66,12 @@ btnCalcular.addEventListener("submit", (e) => {
         alert("debe ingresar un valor mayor a '0'")
         return
     }
-    if(inp == "dolar"){
-        getData(monedas.value)
-        chartRender(monedas.value)
-        return
-    }
-    if(inp == "euro"){
-        getData(monedas.value)
-        chartRender(monedas.value)
+    if(inp == ""){
+        alert("Debe seleccionar un tipo de moneda")
         return
     }
     else{
-        alert("Debe seleccionar un tipo de moneda")
-    }
-
+        getData(monedas.value)
+        chartRender(monedas.value)
+    } 
 })
